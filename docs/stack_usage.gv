@@ -1,0 +1,27 @@
+digraph {
+    // データ
+    node[shape="box"];
+    source[label="ソース"];
+    xml[label="xml群"];
+    mxml[label="統合xml"];
+    call_data[label="コール情報"];
+    stack_data[label="スタック情報"];
+    atom_data[label="要素情報"];
+    stack_sum[label="総スタック情報"];
+    // 変換
+    node[shape="ellipse"];
+    doxygen[label="1. doxygen"];
+    gcc[label="2. gcc"];
+    merge_xml[label="3. XMLマージ"];
+    parse_call[label="4. コール出力"];
+    parse_func[label="5. 要素出力"];
+    sum_stack[label="6. スタック積算"];
+    // 流れ
+    source->doxygen->xml->merge_xml->mxml;
+    source->gcc->stack_data;
+    mxml->parse_call->call_data;
+    mxml->parse_func->atom_data;
+    atom_data -> sum_stack;
+    stack_data-> sum_stack;
+    call_data->sum_stack->stack_sum;
+}
